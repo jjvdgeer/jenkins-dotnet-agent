@@ -15,3 +15,6 @@ RUN downloadname="/tmp/$(basename ${DOTNETCORE_URL})" \
   && export PATH=$PATH:$HOME/dotnet \
   && dotnet --version \
   && rm ${downloadname}
+
+USER root
+
