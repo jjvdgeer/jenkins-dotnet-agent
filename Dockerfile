@@ -6,7 +6,9 @@ ENV DOTNETCORE_URL https://download.visualstudio.microsoft.com/download/pr/8f0df
 RUN apt-get update \
  && apt-get install -qy --no-install-recommends curl
 
-RUN downloadname="$(basename ${DOTNETCORE_URL})" \
+USER jenkins
+
+RUN downloadname="/tmp/$(basename ${DOTNETCORE_URL})" \
   && curl ${DOTNETCORE_URL} --output ${downloadname} \
   && mkdir -p $HOME/dotnet && tar zxf ${downloadname} -C $HOME/dotnet \
   && export DOTNET_ROOT=$HOME/dotnet \
