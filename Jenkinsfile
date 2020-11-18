@@ -24,7 +24,9 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('http://qnap:5000/') {
+			dockerImage.push()
                         dockerImage.push('latest')
+			dockerImage.push('dotnet3.1')
                     }
                 }
             }
