@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('http://qnap:5000/') {
-                        dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                        dockerImage = docker.build registry + ":dotnet3.1-$BUILD_NUMBER"
                         dockerImage.push()
                     }
                 }
@@ -24,7 +24,6 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('http://qnap:5000/') {
-			dockerImage.push()
                         dockerImage.push('latest')
 			dockerImage.push('dotnet3.1')
                     }
