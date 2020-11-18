@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("$registry") {
-                        dockerImage = docker.build imageName + ":$BUILD_NUMBER"
+                        dockerImage = docker.build imageName + ":dotnet5.0-$BUILD_NUMBER"
                         dockerImage.push()
                     }
                 }
@@ -26,13 +26,14 @@ pipeline {
                 script {
                     docker.withRegistry("$registry") {
                         dockerImage.push('latest')
+                        dockerImage.push('dotnet5.0')
                     }
                 }
             }
         }
         stage('Cleaning up') {
             steps {
-                sh "docker rmi $imageName:$BUILD_NUMBER"
+                sh "docker rmi $imageName:dotnet5.0-$BUILD_NUMBER"
             }
         }
     }
