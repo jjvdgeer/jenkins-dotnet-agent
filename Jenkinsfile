@@ -21,11 +21,10 @@ pipeline {
                 }
             }
         }
-        stage('Tag as latest') {
+        stage('Tag as dotnet3.1') {
             steps {
                 script {
                     docker.withRegistry("$registry") {
-                        dockerImage.push('latest')
 			dockerImage.push('dotnet3.1')
                     }
                 }
