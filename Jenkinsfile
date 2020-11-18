@@ -1,6 +1,7 @@
 pipeline {
     environment {
-        registry = "jjvdgeer/jenkins-dotnet-agent"
+        imageName = "jjvdgeer/jenkins-dotnet-agent"
+        registry = "http://qnap:5000/"
         dockerImage = ''
     }
     agent { label 'docker' }
@@ -13,8 +14,8 @@ pipeline {
         stage('Building our image') {
             steps {
                 script {
-                    docker.withRegistry('http://qnap:5000/') {
-                        dockerImage = docker.build registry + ":dotnet3.1-$BUILD_NUMBER"
+                    docker.withRegistry("$registry") {
+                        dockerImage = docker.build imageName + ":dotnet3.1-$BUILD_NUMBER"
                         dockerImage.push()
                     }
                 }
@@ -23,7 +24,7 @@ pipeline {
         stage('Tag as latest') {
             steps {
                 script {
-                    docker.withRegistry('http://qnap:5000/') {
+                    docker.withRegistry("$registry") {
                         dockerImage.push('latest')
 			dockerImage.push('dotnet3.1')
                     }
@@ -32,7 +33,7 @@ pipeline {
         }
         stage('Cleaning up') {
             steps {
-                sh "docker rmi $registry:dotnet3.1-$BUILD_NUMBER"
+                sh "docker rmi $imageName:dotnet3.1-$BUILD_NUMBER"
             }
         }
     }
