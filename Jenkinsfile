@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        imageName = "jjvdgeer/jenkins-dotnet-agent"
+        imageName = "jjvdgeer/jenkins-dotnet6.0-agent"
         registry = "http://qnap:5000/"
         dockerImage = ''
     }
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("$registry") {
-                        dockerImage = docker.build imageName + ":dotnet5.0-$BUILD_NUMBER"
+                        dockerImage = docker.build imageName + ":dotnet6.0-$BUILD_NUMBER"
                         dockerImage.push()
                     }
                 }
@@ -25,15 +25,14 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("$registry") {
-                        dockerImage.push('latest')
-                        dockerImage.push('dotnet5.0')
+                        dockerImage.push('dotnet6.0')
                     }
                 }
             }
         }
         stage('Cleaning up') {
             steps {
-                sh "docker rmi $imageName:dotnet5.0-$BUILD_NUMBER"
+                sh "docker rmi $imageName:dotnet6.0-$BUILD_NUMBER"
             }
         }
     }

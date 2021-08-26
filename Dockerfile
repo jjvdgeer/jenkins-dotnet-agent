@@ -1,7 +1,7 @@
 FROM qnap:5000/jjvdgeer/jenkins-ssh-agent:latest
 
 # dotnet core download URL
-ENV DOTNETCORE_URL https://download.visualstudio.microsoft.com/download/pr/70bdb5a9-34cc-4f28-aa33-15535f73b593/7d31d53187c8937206bcc3b117b88978/dotnet-sdk-5.0.400-linux-arm.tar.gz
+ENV DOTNETCORE_URL https://download.visualstudio.microsoft.com/download/pr/501903b0-5e47-4b76-a965-fabafcd95ff5/d6f197c99957b356ee8f0c6e2304ff09/dotnet-sdk-6.0.100-preview.7.21379.14-linux-arm.tar.gz
 
 RUN apt-get update \
  && apt-get install -qy --no-install-recommends curl libicu-dev
