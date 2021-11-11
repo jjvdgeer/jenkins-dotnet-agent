@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        imageName = "jjvdgeer/jenkins-dotnet6.0-agent"
+        imageName = "jjvdgeer/jenkins-dotnet-agent"
         registry = "http://qnap:5000/"
         dockerImage = ''
     }
