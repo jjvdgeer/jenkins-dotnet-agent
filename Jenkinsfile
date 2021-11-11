@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone sources') {
             steps {
-                git url: 'https://github.com/jjvdgeer/jenkins-dotnet-agent.git', branch: dotnet6.0
+                git url: 'https://github.com/jjvdgeer/jenkins-dotnet-agent.git', branch: env.BRANCH_NAME
             }
         }
         stage('Building our image') {
