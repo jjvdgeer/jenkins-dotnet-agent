@@ -3,6 +3,8 @@ pipeline {
         imageName = "jjvdgeer/jenkins-dotnet-agent"
         registry = "http://qnap:5000/"
         dockerImage = ''
+        isLatest = false
+        isPreview = false
     }
     agent { label 'docker' }
     stages {
@@ -15,24 +17,48 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("$registry") {
-                        dockerImage = docker.build imageName + ":dotnet5.0-$BUILD_NUMBER"
+                        dockerImage = docker.build imageName + ":$BRANCH_NAME-$BUILD_NUMBER"
                         dockerImage.push()
                     }
                 }
             }
         }
-        stage('Tag as dotnet5.0') {
+        stage('Tag image') {
             steps {
                 script {
                     docker.withRegistry("$registry") {
-                        dockerImage.push('dotnet5.0')
+			dockerImage.push("$BRANCH_NAME")
+                    }
+                }
+            }
+        }
+        stage('Tag as latest') {
+            when {
+                expression { return isLatest; }
+            }
+            steps {
+                script {
+                    docker.withRegistry("$registry") {
+                        dockerImage.push('latest')
+                    }
+                }
+            }
+        }
+        stage('Tag as preview') {
+            when {
+                expression { return isPreview; }
+            }
+            steps {
+                script {
+                    docker.withRegistry("$registry") {
+                        dockerImage.push('preview')
                     }
                 }
             }
         }
         stage('Cleaning up') {
             steps {
-                sh "docker rmi $imageName:dotnet5.0-$BUILD_NUMBER"
+                sh "docker rmi $imageName:$BRANCH_NAME-$BUILD_NUMBER"
             }
         }
     }
