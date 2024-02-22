@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-        stage('Tag as latest') {
+        stage('Tag as dotnet6.0') {
             steps {
                 script {
                     docker.withRegistry("$registry") {
