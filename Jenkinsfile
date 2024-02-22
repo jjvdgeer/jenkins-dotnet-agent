@@ -8,14 +8,14 @@ pipeline {
     stages {
         stage('Clone sources') {
             steps {
-                git url: 'https://github.com/jjvdgeer/jenkins-dotnet-agent.git', branch: 'dotnet7.0'
+                git url: 'https://github.com/jjvdgeer/jenkins-dotnet-agent.git', branch: 'dotnet9.0'
             }
         }
         stage('Building our image') {
             steps {
                 script {
                     docker.withRegistry("$registry") {
-                        dockerImage = docker.build imageName + ":dotnet7.0-$BUILD_NUMBER"
+                        dockerImage = docker.build imageName + ":dotnet9.0-$BUILD_NUMBER"
                         dockerImage.push()
                     }
                 }
@@ -25,14 +25,14 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("$registry") {
-			dockerImage.push('dotnet7.0')
+			dockerImage.push('dotnet9.0')
                     }
                 }
             }
         }
         stage('Cleaning up') {
             steps {
-                sh "docker rmi $imageName:dotnet7.0-$BUILD_NUMBER"
+                sh "docker rmi $imageName:dotnet9.0-$BUILD_NUMBER"
             }
         }
     }
