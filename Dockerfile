@@ -4,7 +4,8 @@ FROM qnap:5000/jjvdgeer/jenkins-ssh-agent:latest
 ENV DOTNETCORE_URL https://download.visualstudio.microsoft.com/download/pr/36a601f0-b88e-41ea-910b-4dde7b083e73/61ec8564d50fb391f9e3a10b226fdd0d/dotnet-sdk-3.1.417-linux-arm.tar.gz
 
 RUN apt-get update \
- && apt-get install -qy --no-install-recommends curl libicu-dev
+ && DEBIAN_FRONTEND=noninteractive TZ="Europe/Oslo" \
+    apt-get install -qy --no-install-recommends curl libicu-dev
 
 USER jenkins
 
