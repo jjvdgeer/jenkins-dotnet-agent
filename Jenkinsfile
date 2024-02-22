@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-        stage('Tag as dotnet3.1') {
+        stage('Tag as dotnet9.0') {
             steps {
                 script {
                     docker.withRegistry("$registry") {
