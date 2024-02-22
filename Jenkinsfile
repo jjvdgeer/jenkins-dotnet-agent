@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone sources') {
             steps {
-                git url: 'https://github.com/jjvdgeer/jenkins-dotnet-agent.git'
+                git url: 'https://github.com/jjvdgeer/jenkins-dotnet-agent.git', branch: env.BRANCH_NAME
             }
         }
         stage('Building our image') {
@@ -21,11 +21,10 @@ pipeline {
                 }
             }
         }
-        stage('Tag as latest') {
+        stage('Tag as dotnet5.0') {
             steps {
                 script {
                     docker.withRegistry("$registry") {
-                        dockerImage.push('latest')
                         dockerImage.push('dotnet5.0')
                     }
                 }
