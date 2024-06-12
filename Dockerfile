@@ -1,7 +1,7 @@
 FROM qnap:5000/jjvdgeer/jenkins-ssh-agent:latest
 
 # dotnet core download URL
-ENV DOTNETCORE_URL https://download.visualstudio.microsoft.com/download/pr/cf62adad-ab62-4941-b474-ed275935e7b2/358b637e181b9a76a9a70a192b951760/dotnet-sdk-6.0.420-linux-arm.tar.gz
+ENV DOTNETCORE_URL https://download.visualstudio.microsoft.com/download/pr/46083246-216c-4d0c-905f-67f335466a23/505f9e26b85d7dd29d79a7e11da37926/dotnet-sdk-6.0.423-linux-arm.tar.gz
 
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive TZ="Europe/Oslo" \
