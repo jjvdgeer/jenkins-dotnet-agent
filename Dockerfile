@@ -5,7 +5,7 @@ ENV DOTNETCORE_URL https://download.visualstudio.microsoft.com/download/pr/ff4f1
 
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive TZ="Europe/Oslo" \
-    apt-get install -qy --no-install-recommends curl libicu-dev
+    apt-get install -qy --no-install-recommends curl libicu-dev libc6
 
 USER jenkins
 
