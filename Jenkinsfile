@@ -3,8 +3,8 @@ pipeline {
         imageName = "jjvdgeer/jenkins-dotnet-agent"
         registry = "http://qnap:5000/"
         dockerImage = ''
-        isLatest = false
-        isPreview = true
+        isLatest = 'false'
+        isPreview = 'true'
     }
     agent { label 'docker' }
     stages {
@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Tag as latest') {
             when {
-                expression { return isLatest; }
+                expression { return isLatest.toBoolean(); }
             }
             steps {
                 script {
@@ -46,7 +46,7 @@ pipeline {
         }
         stage('Tag as preview') {
             when {
-                expression { return isPreview; }
+                expression { return isPreview.toBoolean(); }
             }
             steps {
                 script {
